@@ -9,7 +9,7 @@ import asyncio
 class JobsQueue:
     def __init__(self):
         self.topic = 'testopic'
-        loop = asyncio.get_running_loop()
+        loop = asyncio.get_event_loop()
         # self.task = None
         self.task = loop.create_task(self._create_consumer())
         self.consumer = None
@@ -17,12 +17,13 @@ class JobsQueue:
         self.producer = Producer(value_serializer=dumps)
 
     async def _create_consumer(self):
-        return Consumer(topic=self.topic, value_deserializer=loads)
+        consumer = Consumer(topic=self.topic, value_deserializer=loads)
+        await consumer.start()
+        return consumer
 
     async def get(self):
         if not self.consumer:
             self.consumer = await self.task
-        print('in get')
         return self.consumer.__anext__()
 
     async def put(self, job):

@@ -134,14 +134,14 @@ class JobsManager:
                 await asyncio.sleep(0.05)
         logger.info('Manager was stopped')
 
-    def start(self):
+    async def start(self):
         """
         Starts manager work.
 
         :return:        None
         """
         self._enable = True
-        asyncio.ensure_future(self._start_monitoring())
+        await self._start_monitoring()
 
     def stop(self):
         """
