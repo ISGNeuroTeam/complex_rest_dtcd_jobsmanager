@@ -26,6 +26,8 @@ class JobsManagerWrapper(JobsManager):
         while self._enable:
             if not self.jobs_queue.empty():
                 job = await self.jobs_queue.get()
+                job = await job
+                job = job.value
                 job.db_conn = self.db_conn  # injected
                 print('Got a job from queue')
                 # super().logger.debug('Got a job from queue')
