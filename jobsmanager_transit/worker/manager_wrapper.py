@@ -1,8 +1,11 @@
+import logging
 import sys
 sys.path.append('../plugin_dev/jobsmanager_transit/jobsmanager_transit/worker')
 from jobs_manager.manager import JobsManager
 import asyncio
 import jobs_queue
+
+logger = logging.getLogger('osr')
 
 
 class JobsManagerWrapper(JobsManager):
@@ -21,12 +24,11 @@ class JobsManagerWrapper(JobsManager):
         """
 
         print('Watchdog was started')
-        # super().logger.info('Watchdog was started')
-        loop = asyncio.get_event_loop()
+        logger.info('Watchdog was started')
+        loop = asyncio.get_running_loop()
         while self._enable:
             if not self.jobs_queue.empty():
                 job = await self.jobs_queue.get()
-                job = await job
                 job = job.value
                 print('testing', job.db, job.handler_id)
                 job.db = self.db_conn  # injected
