@@ -2,12 +2,12 @@ import asyncio
 import logging
 import re
 
-from ot_simple_rest.handlers.jobs.makejob import MakeJob
+from jobsmanager_transit.ot_simple_rest.handlers.jobs.makejob import MakeJob
 from rest.views import APIView
 from rest.response import Response
 
-from settings import ot_simple_rest_conf, MANAGER
-from views.base_handler import BaseHandlerMod
+from ..settings import ot_simple_rest_conf, MANAGER
+from .base_handler import BaseHandlerMod
 
 
 class MakeJobMod(APIView, BaseHandlerMod, MakeJob):

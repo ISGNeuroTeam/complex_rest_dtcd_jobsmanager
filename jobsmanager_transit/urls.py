@@ -1,9 +1,9 @@
 from rest.urls import path
 from cache import cache_page
-from views.example import ExampleView
-from views.hello import HelloView
-from views.checkjob import CheckJob
-from views.makejob import MakeJobMod
+from .views.example import ExampleView
+from .views.hello import HelloView
+from .views.checkjob import CheckJob
+from .views.makejob import MakeJobMod
 from .views.testview import TestView
 
 # Use cache_page decorator for caching view
