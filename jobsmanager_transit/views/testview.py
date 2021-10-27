@@ -5,6 +5,8 @@ import uuid
 import logging
 from .. import settings
 
+log = logging.getLogger('jobsmanager_transit')
+log.info('plugin works at testview')
 
 class TestJob:
     def __init__(self):
@@ -27,8 +29,10 @@ class TestView(APIView):
     http_method_names = ['get']
 
     def get(self, request):
+        log.info('>get started')
         try:
-            response = settings.MANAGER.jobs_queue.put(TestJob())
+            response = 'check if worker got the message'
+            j = TestJob()
         except Exception as e:
             error_msg = {"status": "rest_error", "server_error": "Internal Server Error", "status_code": 500,
                          "error": e.args[0]}  # weird

@@ -2,6 +2,10 @@ from message_broker import AsyncConsumer as Consumer  # make async?
 from message_broker import Producer
 from pickle import loads, dumps
 import asyncio
+import logging
+
+log = logging.getLogger('jobsmanager_transit')
+log.info('plugin works at jobs_queue')
 
 
 class JobsQueue:
@@ -23,8 +27,10 @@ class JobsQueue:
         return await self.consumer.__anext__()
 
     async def put(self, job):
+        log.info('<prepare for serialization')
         self.prepare_for_serialization(job)
-        return self.producer.send(self.topic, job)
+        log.info('<send message')
+        self.producer.send(self.topic, job)  # ?
 
     @staticmethod
     def prepare_for_serialization(job):

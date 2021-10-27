@@ -16,6 +16,6 @@ urlpatterns = [
     path('example/', ExampleView.as_view()),
     path('hello/', HelloView.as_view()),
     path('checkjob/', CheckJob.as_view()),
-    path('checkjob/', MakeJobMod.as_view()),
+    path('makejob/', MakeJobMod.as_view()),
     path('test/', TestView.as_view())
 ]
