@@ -3,18 +3,20 @@ import logging
 import re
 
 from jobsmanager_transit.ot_simple_rest.handlers.jobs.makejob import MakeJob
+from rest_framework.request import Request
+
+from ot_simple_rest.handlers.jobs.makejob import MakeJob
+
 from rest.views import APIView
 from rest.response import Response
 
-from ..settings import ot_simple_rest_conf, MANAGER
+from ..settings import user_conf, MANAGER
 from .base_handler import BaseHandlerMod
 
 
 class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        user_conf = ot_simple_rest_conf.get('user_conf', {})
         self.check_index_access = False if user_conf['check_index_access'] == 'False' else True
         self.jobs_manager = MANAGER
         self.logger = logging.getLogger('osr_hid')
@@ -28,12 +30,12 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
         original_otl = original_otl.strip()
         return original_otl
 
-    def post(self, request):
+    def post(self, request: Request):
         original_otl = self._get_original_otl(
             request.data.get('original_otl', '')
         )
         indexes = re.findall(r"index\s?=\s?([\"\']?_?\w*[\w*][_\w+]*?[\"\']?)", original_otl)
-        self.user_id = request.user.id  # TODO Check
+        self.user_id = request.user.guid  # TODO Check
         user_accessed_indexes = self.get_user_indexes_rights(indexes)
         if not user_accessed_indexes:
             return self.write({"status": "fail", "error": "User has no access to index"})
