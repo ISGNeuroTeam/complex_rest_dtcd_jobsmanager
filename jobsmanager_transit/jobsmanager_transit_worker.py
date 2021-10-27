@@ -34,9 +34,11 @@ async def main():
 
     manager = manager_wrapper.JobsManagerWrapper(db_conn_pool=db_pool, mem_conf=mem_conf, disp_conf=disp_conf,
                                                  resolver_conf=resolver_conf)
+    print('are u alive?')
     await manager.start()
 
 
 if __name__ == '__main__':
+    print('say something')
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())

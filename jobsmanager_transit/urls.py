@@ -3,6 +3,7 @@ from cache import cache_page
 from .views.example import ExampleView
 from .views.hello import HelloView
 from .views.checkjob import CheckJob
+from .views.testview import TestView
 
 # Use cache_page decorator for caching view
 
@@ -13,5 +14,6 @@ from .views.checkjob import CheckJob
 urlpatterns = [
     path('example/', ExampleView.as_view()),
     path('hello/', HelloView.as_view()),
-    path('checkjob/', CheckJob.as_view())
+    path('checkjob/', CheckJob.as_view()),
+    path('test/', TestView.as_view())
 ]
