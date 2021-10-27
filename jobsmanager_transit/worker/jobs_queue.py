@@ -24,7 +24,7 @@ class JobsQueue:
     async def get(self):
         if not self.consumer:
             self.consumer = await self.task
-        return self.consumer.__anext__()
+        return await self.consumer.__anext__()
 
     async def put(self, job):
         return self.producer.send(self.topic, job)
