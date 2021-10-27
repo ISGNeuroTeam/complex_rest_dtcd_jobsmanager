@@ -1,18 +1,13 @@
 import configparser
 
-from pathlib import Path
 from core.settings.ini_config import merge_ini_config_with_defaults
 
-import asyncio
 from pathlib import Path
 import os
-import logging.config
 from configparser import ConfigParser
 from psycopg2.pool import ThreadedConnectionPool
-import sys
-sys.path.append('../plugin_dev/jobsmanager_transit/jobsmanager_transit/worker')
-# print(os.getcwd())
-import manager_wrapper
+
+from wrappers import manager_wrapper
 
 ######################
 # PRODUCER
@@ -22,7 +17,7 @@ import manager_wrapper
 basedir = os.path.dirname(os.path.abspath(__file__))
 
 config = ConfigParser()
-config.read(os.path.join(basedir, 'worker/ot_simple_rest.conf'))
+config.read(os.path.join(basedir, 'ot_simple_rest.conf'))
 
 db_conf = dict(config['db_conf'])
 db_conf_eva = dict(config['db_conf_eva'])
@@ -49,7 +44,7 @@ default_ini_config = {
     'db_conf': {
         'host': 'localhost',
         'port': '5432',
-        'database':  'jobsmanager_transit',
+        'database': 'jobsmanager_transit',
         'user': 'jobsmanager_transit',
         'password': 'jobsmanager_transit'
     }
