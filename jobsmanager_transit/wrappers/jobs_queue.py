@@ -1,5 +1,3 @@
-import sys
-sys.path.append('../worker')  # why do i have to do this?
 from message_broker import AsyncConsumer as Consumer  # make async?
 from message_broker import Producer
 from pickle import loads, dumps
