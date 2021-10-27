@@ -1,4 +1,4 @@
-from ot_simple_rest.tools.pg_connector import PGConnector
+from jobsmanager_transit.ot_simple_rest.tools.pg_connector import PGConnector
 from copy import deepcopy
 
 __author__ = "Anton Khromov"

@@ -1,8 +1,8 @@
 import logging
 import asyncio
 from datetime import datetime
-from ot_simple_rest.jobs_manager.jobs import Job
-from ot_simple_rest.handlers.jobs.db_connector import PostgresConnector
+from .jobs import Job
+from ..handlers.jobs.db_connector import PostgresConnector
 
 logger = logging.getLogger('osr')
 

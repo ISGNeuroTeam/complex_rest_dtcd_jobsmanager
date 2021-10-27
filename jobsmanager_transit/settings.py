@@ -7,7 +7,7 @@ import os
 from configparser import ConfigParser
 from psycopg2.pool import ThreadedConnectionPool
 
-from wrappers import manager_wrapper
+from jobsmanager_transit.wrappers import manager_wrapper
 
 ######################
 # PRODUCER

@@ -10,7 +10,7 @@ import tornado.web
 import tornado.httputil
 from openpyxl import Workbook
 
-from ot_simple_rest.handlers.eva.base import BaseHandler
+from jobsmanager_transit.ot_simple_rest.handlers.eva.base import BaseHandler
 
 import logging
 logger = logging.getLogger('osr')

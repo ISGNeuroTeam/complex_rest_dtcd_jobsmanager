@@ -1,8 +1,8 @@
 import logging
 import asyncio
 
-from wrappers.jobs_queue import JobsQueue
-from ot_simple_rest.jobs_manager.manager import JobsManager
+from jobsmanager_transit.wrappers.jobs_queue import JobsQueue
+from jobsmanager_transit.ot_simple_rest.jobs_manager.manager import JobsManager
 
 
 logger = logging.getLogger('osr')

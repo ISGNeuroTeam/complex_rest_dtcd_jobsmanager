@@ -1,9 +1,12 @@
+import sys
+sys.path.insert(0, '.')
+from core.settings.base import PLUGINS_DIR
+sys.path.insert(1, PLUGINS_DIR)
 import asyncio
 import os
 from configparser import ConfigParser
 from psycopg2.pool import ThreadedConnectionPool
-from wrappers import manager_wrapper
-
+from jobsmanager_transit.wrappers import manager_wrapper
 
 # from task_scheduler.tasks import DbTasksSchduler
 # import uwsgi

@@ -3,7 +3,7 @@ from hashlib import blake2b
 
 import tornado.web
 
-from ot_simple_rest.handlers.eva.base import BaseHandler
+from jobsmanager_transit.ot_simple_rest.handlers.eva.base import BaseHandler
 
 
 __author__ = "Anton Khromov"

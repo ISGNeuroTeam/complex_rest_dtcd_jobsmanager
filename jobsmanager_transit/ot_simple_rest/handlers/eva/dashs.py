@@ -11,7 +11,7 @@ import logging
 import tornado.web
 import tornado.httputil
 
-from ot_simple_rest.handlers.eva.base import BaseHandler
+from jobsmanager_transit.ot_simple_rest.handlers.eva.base import BaseHandler
 
 __author__ = "Anton Khromov"
 __copyright__ = "Copyright 2019, Open Technologies 98"

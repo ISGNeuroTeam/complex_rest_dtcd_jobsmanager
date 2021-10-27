@@ -1,8 +1,8 @@
 from parglare import Parser, Grammar
 
-from ot_simple_rest.parsers.otl_to_sparksql.internal import grammar
-from ot_simple_rest.parsers.otl_to_sparksql.internal.timerange import Timerange
-from ot_simple_rest.parsers.otl_to_sparksql.internal.expressions.baseEvalExpression import BaseEvalExpressions
+from jobsmanager_transit.ot_simple_rest.parsers.otl_to_sparksql.internal import grammar
+from jobsmanager_transit.ot_simple_rest.parsers.otl_to_sparksql.internal.timerange import Timerange
+from jobsmanager_transit.ot_simple_rest.parsers.otl_to_sparksql.internal.expressions.baseEvalExpression import BaseEvalExpressions
 
 
 class OTLtoSQL:

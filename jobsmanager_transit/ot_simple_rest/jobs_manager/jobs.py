@@ -4,8 +4,8 @@ import os
 import json
 import asyncio
 
-from ot_simple_rest.utils import backlasher
-from ot_simple_rest.parsers.otl_resolver.Resolver import Resolver
+from jobsmanager_transit.ot_simple_rest.utils import backlasher
+from jobsmanager_transit.ot_simple_rest.parsers.otl_resolver.Resolver import Resolver
 
 __author__ = "Anton Khromov"
 __copyright__ = "Copyright 2019, Open Technologies 98"
