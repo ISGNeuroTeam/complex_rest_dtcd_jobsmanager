@@ -15,8 +15,10 @@ from .base_handler import BaseHandlerMod
 
 
 class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
+    permission_classes = (AllowAny,)
 
     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.check_index_access = False if user_conf['check_index_access'] == 'False' else True
         self.jobs_manager = MANAGER
         self.logger = logging.getLogger('osr_hid')
