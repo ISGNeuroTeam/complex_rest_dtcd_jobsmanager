@@ -16,17 +16,17 @@ from jobsmanager_transit.wrappers import manager_wrapper
 
 basedir = os.path.dirname(os.path.abspath(__file__))
 
-config = ConfigParser()
-config.read(os.path.join(basedir, 'ot_simple_rest.conf'))
+ot_simple_rest_conf = ConfigParser()
+ot_simple_rest_conf.read(os.path.join(basedir, 'ot_simple_rest.conf'))
 
-db_conf = dict(config['db_conf'])
-db_conf_eva = dict(config['db_conf_eva'])
-mem_conf = dict(config['mem_conf'])
-disp_conf = dict(config['dispatcher'])
-resolver_conf = dict(config['resolver'])
-static_conf = dict(config['static'])
-user_conf = dict(config['user'])
-pool_conf = dict(config['db_pool_conf'])
+db_conf = dict(ot_simple_rest_conf['db_conf'])
+db_conf_eva = dict(ot_simple_rest_conf['db_conf_eva'])
+mem_conf = dict(ot_simple_rest_conf['mem_conf'])
+disp_conf = dict(ot_simple_rest_conf['dispatcher'])
+resolver_conf = dict(ot_simple_rest_conf['resolver'])
+static_conf = dict(ot_simple_rest_conf['static'])
+user_conf = dict(ot_simple_rest_conf['user'])
+pool_conf = dict(ot_simple_rest_conf['db_pool_conf'])
 
 # # # # # # # # # # # # # # # # # # # # # # # # # #
 

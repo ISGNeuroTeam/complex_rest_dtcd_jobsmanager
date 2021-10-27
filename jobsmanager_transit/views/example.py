@@ -6,7 +6,7 @@ from rest.views import APIView
 from rest.response import Response, status
 from rest.permissions import IsAuthenticated, AllowAny
 
-from jobsmanager_transit.settings import ini_config
+from settings import ini_config
 
 # you can use default logger for plugin
 log = logging.getLogger('jobsmanager_transit')
