@@ -4,7 +4,7 @@ import logging
 import tornado.web
 from tornado.ioloop import IOLoop
 
-from jobsmanager_transit.ot_simple_rest.handlers.jobs.db_connector import PostgresConnector
+from handlers.jobs.db_connector import PostgresConnector
 
 __author__ = "Andrey Starchenkov"
 __copyright__ = "Copyright 2019, Open Technologies 98"

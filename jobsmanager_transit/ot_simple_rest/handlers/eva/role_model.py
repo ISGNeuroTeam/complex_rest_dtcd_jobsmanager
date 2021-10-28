@@ -4,7 +4,7 @@ import tornado.escape
 import tornado.ioloop
 import tornado.web
 
-from jobsmanager_transit.ot_simple_rest.handlers.eva.base import BaseHandler
+from handlers.eva.base import BaseHandler
 
 __author__ = "Anton Khromov"
 __copyright__ = "Copyright 2019, Open Technologies 98"

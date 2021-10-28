@@ -1,7 +1,7 @@
 import logging
 from contextlib import contextmanager
 
-# import tornado.util
+import tornado.util
 import psycopg2
 from psycopg2.pool import PoolError
 from asyncio import sleep

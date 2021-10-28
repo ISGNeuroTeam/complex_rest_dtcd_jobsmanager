@@ -6,7 +6,7 @@ import json
 import jwt
 import tornado.web
 
-from jobsmanager_transit.ot_simple_rest.handlers.eva.db_connector import PostgresConnector
+from .db_connector import PostgresConnector
 
 SECRET_KEY = '8b62abb2-bbf6-4e0e-a7c1-2e4734bebbd9'
 

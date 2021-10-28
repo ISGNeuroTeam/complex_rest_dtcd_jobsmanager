@@ -4,7 +4,7 @@ import logging
 import tornado.web
 import tornado.httputil
 
-from jobsmanager_transit.ot_simple_rest.handlers.eva.base import BaseHandler
+from handlers.eva.base import BaseHandler
 
 __author__ = "Alexander Matiakubov"
 __copyright__ = "Copyright 2021, ISG Neuro"

@@ -4,8 +4,8 @@ import os
 import json
 import asyncio
 
-from jobsmanager_transit.ot_simple_rest.utils import backlasher
-from jobsmanager_transit.ot_simple_rest.parsers.otl_resolver.Resolver import Resolver
+from ..utils import backlasher
+from ..parsers.otl_resolver.Resolver import Resolver
 
 __author__ = "Anton Khromov"
 __copyright__ = "Copyright 2019, Open Technologies 98"
@@ -23,7 +23,7 @@ class Job:
     and get jobs result from cache.
     """
 
-
+    logger = logging.getLogger('osr_hid')
 
     def __init__(self, *, id, request, db_conn, mem_conf, resolver_conf,
                  tracker_max_interval, indexes=None):
@@ -34,7 +34,7 @@ class Job:
         self.mem_conf = mem_conf
         self.resolver_conf = resolver_conf
         self.tracker_max_interval = tracker_max_interval
-        self.logger = logging.getLogger('osr_hid')
+
         self.status = {'status': 'created'}
         self.resolved_data = None
         self.search = None

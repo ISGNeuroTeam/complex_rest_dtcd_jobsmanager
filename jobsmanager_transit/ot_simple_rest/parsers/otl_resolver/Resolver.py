@@ -7,8 +7,8 @@ import logging
 import regex as pcre
 from hashlib import sha256
 from base64 import standard_b64encode as b64encode
-from jobsmanager_transit.ot_simple_rest.parsers.otl_resolver.macros import Macros
-from jobsmanager_transit.ot_simple_rest.parsers.otl_to_sparksql.otl_parser import OTLtoSQL
+from .macros import Macros
+from ..otl_to_sparksql.otl_parser import OTLtoSQL
 
 
 __author__ = ["Andrey Starchenkov", "Anton Khromov"]

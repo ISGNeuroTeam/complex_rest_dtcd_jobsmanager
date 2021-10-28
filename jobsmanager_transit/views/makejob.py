@@ -5,7 +5,7 @@ import re
 from jobsmanager_transit.ot_simple_rest.handlers.jobs.makejob import MakeJob
 from rest_framework.request import Request
 
-from ot_simple_rest.handlers.jobs.makejob import MakeJob
+from rest.permissions import AllowAny
 
 from rest.views import APIView
 from rest.response import Response
@@ -16,6 +16,7 @@ from .base_handler import BaseHandlerMod
 
 class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
     permission_classes = (AllowAny,)
+    http_method_names = ['post']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -37,17 +38,20 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
             request.data.get('original_otl', '')
         )
         indexes = re.findall(r"index\s?=\s?([\"\']?_?\w*[\w*][_\w+]*?[\"\']?)", original_otl)
-        self.user_id = request.user.guid  # TODO Check
+        if not request.user.id:
+            pass
+        else:
+            self.user_id = request.user.guid  # TODO Check
         user_accessed_indexes = self.get_user_indexes_rights(indexes)
         if not user_accessed_indexes:
-            return self.write({"status": "fail", "error": "User has no access to index"})
+            return Response({"status": "fail", "error": "User has no access to index"})
         self.logger.debug(f'User has access. Indexes: {user_accessed_indexes}.', extra={'hid': self.handler_id})
 
         loop = asyncio.get_event_loop()
         response = loop.run_until_complete(
             self.jobs_manager.make_job(
                 hid=self.handler_id,
-                request=type('request', (type,), {'arguments': request.data, 'body_arguments': request.data}), # TODO Check!
+                request=type('request', (type,), {'arguments': request.data, 'body_arguments': request.data}), # TODO Check! что аргументс, боди аргументс
                 indexes=user_accessed_indexes)
         )
         self.logger.debug(f'MakeJob RESPONSE: {response}', extra={'hid': self.handler_id})

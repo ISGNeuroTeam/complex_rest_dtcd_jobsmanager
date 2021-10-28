@@ -3,7 +3,7 @@ import logging
 import os.path
 from datetime import datetime
 
-from jobsmanager_transit.ot_simple_rest.parsers.otl_resolver.fieldalias import FieldAlias
+from .fieldalias import FieldAlias
 
 
 class Macros:
