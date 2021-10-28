@@ -6,7 +6,7 @@ import logging
 from .. import settings
 
 log = logging.getLogger('jobsmanager_transit')
-log.info('plugin works at testview')
+# log.info('plugin works at testview')
 
 class TestJob:
     def __init__(self):

@@ -4,6 +4,7 @@ import re
 import uuid
 
 from jobsmanager_transit.ot_simple_rest.handlers.jobs.makejob import MakeJob
+from jobsmanager_transit.ot_simple_rest.utils.primitives import EverythingEqual
 from rest_framework.request import Request
 
 from rest.permissions import AllowAny
@@ -63,16 +64,7 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
         )
         self._convert_to_binary(request.data)  # for testing REMOVE
         indexes = re.findall(r"index\s?=\s?([\"\']?_?\w*[\w*][_\w+]*?[\"\']?)", original_otl)
-        if not request.user.id:
-            pass
-        else:
-            self.user_id = request.user.guid  # TODO Check
-        user_accessed_indexes = self.get_user_indexes_rights(indexes)
-        if not user_accessed_indexes:
-            return Response({"status": "fail", "error": "User has no access to index"})
-        self.logger.debug(f'User has access. Indexes: {user_accessed_indexes}.', extra={'hid': self.handler_id})
-
-        # loop = asyncio.get_event_loop()  # There is no current event loop in thread 'Thread-7'.
+        user_accessed_indexes = [EverythingEqual()]
 
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -80,7 +72,6 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
             self.jobs_manager.make_job(
                 hid=self.handler_id,
                 request=SimpleRequest(request.data, remote_ip),
-                # request=type('request', (type,), {'arguments': request.data, 'body_arguments': request.data, 'remote_ip': remote_ip}), # TODO Check! type object 'request' has no attribute 'remote_ip'
                 indexes=user_accessed_indexes)
         )
         self.logger.debug(f'MakeJob RESPONSE: {response}', extra={'hid': self.handler_id})
