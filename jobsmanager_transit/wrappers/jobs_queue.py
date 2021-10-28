@@ -34,8 +34,8 @@ class JobsQueue:
 
     @staticmethod
     def prepare_for_serialization(job):
-        # to serialize and transmit object to another process (consumer). db_conn will be assigned after deserialization
-        job.db_conn = None
+        # to serialize and transmit object to another process (consumer). db will be assigned after deserialization
+        job.db = None
 
     def empty(self):
         return False  # https://stackoverflow.com/questions/36428014/check-if-kafka-queue-is-empty

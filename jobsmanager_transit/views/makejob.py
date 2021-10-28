@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import re
+import uuid
 
 from jobsmanager_transit.ot_simple_rest.handlers.jobs.makejob import MakeJob
 from rest_framework.request import Request
@@ -14,7 +15,15 @@ from ..settings import user_conf, MANAGER
 from .base_handler import BaseHandlerMod
 
 
+class SimpleRequest:
+    def __init__(self, data, remote_ip):
+        self.body_arguments = data
+        self.arguments = data
+        self.remote_ip = remote_ip
+
+
 class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
+    handler_id = str(uuid.uuid4())
     permission_classes = (AllowAny,)
     http_method_names = ['post']
 
@@ -33,10 +42,26 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
         original_otl = original_otl.strip()
         return original_otl
 
+    @staticmethod
+    def _convert_to_binary(request_data):
+        for data in request_data.values():
+            data[0] = data[0].encode('utf-8')
+
+    @staticmethod
+    def _get_client_ip(request_meta):
+        x_forwarded_for = request_meta.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request_meta.get('REMOTE_ADDR')
+        return ip
+
     def post(self, request: Request):
+        remote_ip = self._get_client_ip(request.META)
         original_otl = self._get_original_otl(
-            request.data.get('original_otl', '')
+            request.data.get('original_otl', '')[0]  # why they put it in a LIST? cannot use a string pattern on a bytes-like object DECODE FIRST?
         )
+        self._convert_to_binary(request.data)  # for testing REMOVE
         indexes = re.findall(r"index\s?=\s?([\"\']?_?\w*[\w*][_\w+]*?[\"\']?)", original_otl)
         if not request.user.id:
             pass
@@ -47,11 +72,15 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
             return Response({"status": "fail", "error": "User has no access to index"})
         self.logger.debug(f'User has access. Indexes: {user_accessed_indexes}.', extra={'hid': self.handler_id})
 
-        loop = asyncio.get_event_loop()
+        # loop = asyncio.get_event_loop()  # There is no current event loop in thread 'Thread-7'.
+
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         response = loop.run_until_complete(
             self.jobs_manager.make_job(
                 hid=self.handler_id,
-                request=type('request', (type,), {'arguments': request.data, 'body_arguments': request.data}), # TODO Check! что аргументс, боди аргументс
+                request=SimpleRequest(request.data, remote_ip),
+                # request=type('request', (type,), {'arguments': request.data, 'body_arguments': request.data, 'remote_ip': remote_ip}), # TODO Check! type object 'request' has no attribute 'remote_ip'
                 indexes=user_accessed_indexes)
         )
         self.logger.debug(f'MakeJob RESPONSE: {response}', extra={'hid': self.handler_id})

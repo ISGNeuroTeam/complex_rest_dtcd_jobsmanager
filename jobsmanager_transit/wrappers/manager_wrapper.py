@@ -37,9 +37,7 @@ class JobsManagerWrapper(JobsManager):
                 print('testing', job.db, job.handler_id)
                 job.db = self.db_conn  # injected
                 print('Got a job from queue')
-                # super().logger.debug('Got a job from queue')
                 loop.create_task(job.start_make())
             else:
                 await asyncio.sleep(0.05)
         print('Manager was stopped')
-        # super().logger.info('Manager was stopped')
