@@ -5,6 +5,7 @@ import uuid
 
 from jobsmanager_transit.ot_simple_rest.handlers.jobs.makejob import MakeJob
 from jobsmanager_transit.ot_simple_rest.utils.primitives import EverythingEqual
+from jobsmanager_transit.wrappers.simple_request import SimpleRequest
 from rest_framework.request import Request
 
 from rest.permissions import AllowAny
@@ -16,11 +17,6 @@ from ..settings import user_conf, MANAGER
 from .base_handler import BaseHandlerMod
 
 
-class SimpleRequest:
-    def __init__(self, data, remote_ip):
-        self.body_arguments = data
-        self.arguments = data
-        self.remote_ip = remote_ip
 
 
 class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
@@ -69,6 +65,7 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         response = loop.run_until_complete(
+            # зовем продюсера: который передает словари
             self.jobs_manager.make_job(
                 hid=self.handler_id,
                 request=SimpleRequest(request.data, remote_ip),
