@@ -54,7 +54,7 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
         # original_otl = self._get_original_otl(
         #     request.data.get('original_otl', '')[0]  # why they put it in a LIST? cannot use a string pattern on a bytes-like object DECODE FIRST?
         # )
-        self._convert_to_binary(request.data)  # todo for testing REMOVE
+        # self._convert_to_binary(request.data)  # todo for testing REMOVE
         # indexes = re.findall(r"index\s?=\s?([\"\']?_?\w*[\w*][_\w+]*?[\"\']?)", original_otl)
         # user_accessed_indexes = [EverythingEqual()] # todo authorization
         loop = asyncio.new_event_loop()

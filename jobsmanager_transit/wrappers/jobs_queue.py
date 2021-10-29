@@ -13,7 +13,7 @@ class JobsQueue:
 
     async def put(self, job_description):
         log.info('<send message')
-        self._convert_to_str(job_description['body_arguments'])
+        # self._convert_to_str(job_description['body_arguments'])
         topic, partition, offset = self.producer.send(self.topic, job_description)
         return {"status": "success", "timestamp": str(datetime.now()), 'topic': topic, 'partition': partition, 'offset': offset}
 
