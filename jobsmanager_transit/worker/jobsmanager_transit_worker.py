@@ -53,14 +53,22 @@ async def main():
             # async for
             job_description = msg.value
             print(job_description)
+            request = SimpleRequest(job_description['body_arguments'], job_description['remote_ip'])
+
+            request.body_arguments['original_otl'][0] = request.body_arguments['original_otl'][0].encode('utf-8')
+            request.body_arguments['username'][0] = request.body_arguments['username'][0].encode('utf-8')
+            request.body_arguments['sid'][0] = request.body_arguments['sid'][0].encode('utf-8')
+
             await manager.make_job(
                 hid=job_description['handler_id'],
                 request=SimpleRequest(job_description['body_arguments'], job_description['remote_ip']),
                 indexes=[EverythingEqual()])  # todo authorization
             queue_size = manager.jobs_queue.qsize()
-            async for i in async_range(queue_size):
+            print('job was made')
+            async for _ in async_range(queue_size):
                 job = await manager.jobs_queue.get()
                 print('Got a job from queue')
+                # await job.start_make()
                 asyncio.create_task(job.start_make())
                 await asyncio.sleep(0)
 
