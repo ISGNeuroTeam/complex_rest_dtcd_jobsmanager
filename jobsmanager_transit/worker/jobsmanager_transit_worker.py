@@ -14,13 +14,12 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        # logging.FileHandler("./logs/jobsmanager_transit/out.log"),
+        # in order to override loggers from simple rest
         logging.StreamHandler(sys.stdout)
     ]
 )
 
-logger_osr = logging.getLogger('ladybug')
-logger_osr.info('ladybug')
+logger = logging.getLogger('worker')
 
 
 async def async_range(count):
@@ -61,9 +60,9 @@ async def main():
 
     async with Consumer(topic, value_deserializer=loads) as consumer:
         async for msg in consumer:
-            print('received message')
+            logger.info('received message')
             job_description = msg.value
-            print(job_description)
+            logger.info(job_description)
             if type(job_description['body_arguments']['original_otl'][0]) is str:
                 convert_to_bin(job_description['body_arguments'])
             request = SimpleRequest(job_description['body_arguments'], job_description['remote_ip'])
@@ -73,10 +72,10 @@ async def main():
                 request=SimpleRequest(job_description['body_arguments'], job_description['remote_ip']),
                 indexes=[EverythingEqual()])  # todo authorization
             queue_size = manager.jobs_queue.qsize()
-            print('job was made')
+            logger.info('job was made')
             async for _ in async_range(queue_size):
                 job = await manager.jobs_queue.get()
-                print('Got a job from queue')
+                logger.info('Got a job from queue')
                 await job.start_make()
                 await asyncio.sleep(0.001)
 

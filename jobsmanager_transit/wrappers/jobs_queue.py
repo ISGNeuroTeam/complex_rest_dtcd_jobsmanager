@@ -12,12 +12,6 @@ class JobsQueue:
         self.producer = Producer(value_serializer=lambda x: dumps(x).encode('utf-8'))
 
     async def put(self, job_description):
-        log.info('<send message')
-        # self._convert_to_str(job_description['body_arguments'])
+        log.info('send message')
         topic, partition, offset = self.producer.send(self.topic, job_description)
         return {"status": "success", "timestamp": str(datetime.now()), 'topic': topic, 'partition': partition, 'offset': offset}
-
-    @staticmethod
-    def _convert_to_str(request_data):
-        for data in request_data.values():
-            data[0] = data[0].decode('utf-8')
