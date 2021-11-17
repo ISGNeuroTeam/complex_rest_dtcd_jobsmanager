@@ -110,3 +110,4 @@ jobsmanager_transit.conf
 venv.tar.gz
 
 nginx/
+make_build/
