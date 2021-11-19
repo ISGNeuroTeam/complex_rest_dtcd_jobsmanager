@@ -1,6 +1,6 @@
 from cache import cache_page
-from .views.checkjob import CheckJob
-from .views.makejob import MakeJobMod
+from .views.check_job import CheckJob
+from .views.make_job import MakeJobMod
 from django.urls import re_path
 
 # Use cache_page decorator for caching view

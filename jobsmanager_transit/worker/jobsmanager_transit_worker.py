@@ -27,11 +27,6 @@ async def async_range(count):
         yield i
 
 
-def convert_to_bin(data):
-    for k in data.keys():
-        data[k] = data[k].encode('utf-8')
-
-
 async def main():
     # # # # # #  Configuration section  # # # # # # #
 
@@ -63,13 +58,11 @@ async def main():
             logger.info('received message')
             job_description = msg.value
             logger.info(job_description)
-            if type(job_description['body_arguments']['original_otl']) is str:
-                convert_to_bin(job_description['body_arguments'])
             request = SimpleRequest(job_description['body_arguments'], job_description['remote_ip'])
 
             await manager.make_job(
                 hid=job_description['handler_id'],
-                request=SimpleRequest(job_description['body_arguments'], job_description['remote_ip']),
+                request=request,
                 indexes=[EverythingEqual()])  # todo authorization
             queue_size = manager.jobs_queue.qsize()
             logger.info('job was made')
