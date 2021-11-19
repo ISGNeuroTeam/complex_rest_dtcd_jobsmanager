@@ -52,8 +52,7 @@ class GetResult(APIView):
 
         if not os.path.exists(cache_full_path):
             self.logger.error('No cache with id={}'.format(cid))
-            return self.write({'status': 'failed', 'error': 'No cache with id={}'.format(cid)})
-            # raise tornado.web.HTTPError(405, f'No cache with id={cid}')
+            return {'status': 'failed', 'error': f'No cache with id={cid}'}
 
         self.logger.debug('Cache with id={} exists'.format(cid))
         listing = os.listdir(cache_full_path)
