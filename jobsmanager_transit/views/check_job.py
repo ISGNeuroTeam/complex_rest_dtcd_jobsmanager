@@ -1,6 +1,6 @@
 from rest.views import APIView
 from rest.response import Response, status
-from rest.permissions import AllowAny
+from rest.permissions import AllowAny, IsAuthenticated
 import uuid
 import logging
 from .. import settings
@@ -11,7 +11,7 @@ log.setLevel(settings.ini_config['logging']['level'])
 
 class CheckJob(APIView):
     handler_id = str(uuid.uuid4())
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny, )
 
     http_method_names = ['get']
 

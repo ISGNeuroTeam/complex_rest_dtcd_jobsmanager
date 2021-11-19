@@ -22,7 +22,7 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.check_index_access = False if user_conf['check_index_access'] == 'False' else True
+        self.check_index_access = False if user_conf.get('check_index_access') == 'False' else True
         self.jobs_manager = MANAGER
         self.logger = logging.getLogger('osr_hid')
         self.user_id = None
