@@ -1,9 +1,7 @@
-from rest.urls import path
 from cache import cache_page
-from .views.example import ExampleView
-from .views.hello import HelloView
 from .views.checkjob import CheckJob
 from .views.makejob import MakeJobMod
+from django.urls import re_path
 
 # Use cache_page decorator for caching view
 
@@ -12,8 +10,6 @@ from .views.makejob import MakeJobMod
 # ]
 
 urlpatterns = [
-    path('example/', ExampleView.as_view()),
-    path('hello/', HelloView.as_view()),
-    path('checkjob/', CheckJob.as_view()),
-    path('makejob/', MakeJobMod.as_view())
+    re_path(r'^checkjob/?$', CheckJob.as_view()),
+    re_path(r'^makejob/?$', MakeJobMod.as_view())
 ]

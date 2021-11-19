@@ -28,8 +28,8 @@ async def async_range(count):
 
 
 def convert_to_bin(data):
-    for d in data.values():
-        d[0] = d[0].encode('utf-8')
+    for k in data.keys():
+        data[k] = data[k].encode('utf-8')
 
 
 async def main():
@@ -63,7 +63,7 @@ async def main():
             logger.info('received message')
             job_description = msg.value
             logger.info(job_description)
-            if type(job_description['body_arguments']['original_otl'][0]) is str:
+            if type(job_description['body_arguments']['original_otl']) is str:
                 convert_to_bin(job_description['body_arguments'])
             request = SimpleRequest(job_description['body_arguments'], job_description['remote_ip'])
 
