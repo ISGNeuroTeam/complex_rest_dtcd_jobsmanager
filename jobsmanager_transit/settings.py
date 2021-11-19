@@ -7,7 +7,7 @@ import os
 from configparser import ConfigParser
 from psycopg2.pool import ThreadedConnectionPool
 
-from jobsmanager_transit.wrappers import manager_wrapper
+from jobsmanager_transit.wrappers import jobs_wrapper
 
 ######################
 # PRODUCER
@@ -33,7 +33,7 @@ pool_conf = dict(ot_simple_rest_conf['db_pool_conf'])
 db_pool = ThreadedConnectionPool(int(pool_conf['min_size']), int(pool_conf['max_size']), **db_conf)
 db_pool_eva = ThreadedConnectionPool(int(pool_conf['min_size']), int(pool_conf['max_size']), **db_conf_eva)
 
-MANAGER = manager_wrapper.JobsManagerWrapper(db_conn_pool=db_pool, mem_conf=mem_conf, disp_conf=disp_conf,
+MANAGER = jobs_wrapper.JobsManagerWrapper(db_conn_pool=db_pool, mem_conf=mem_conf, disp_conf=disp_conf,
                                              resolver_conf=resolver_conf)
 ######################
 

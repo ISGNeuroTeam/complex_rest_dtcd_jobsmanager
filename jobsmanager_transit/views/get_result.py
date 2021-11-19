@@ -6,7 +6,7 @@ from rest.permissions import AllowAny
 import uuid
 import logging
 
-from wrappers.jobs_wrapper import FakeJobWrapper
+from ..wrappers.jobs_wrapper import FakeJobWrapper
 from .. import settings
 
 log = logging.getLogger('jobsmanager_transit')
@@ -34,6 +34,7 @@ class GetResult(APIView):
         cid = dict(request.GET).get('cid')
         if not cid:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        cid = cid[0]
         if self.with_nginx:
             return Response(self.generate_data_links(cid), status=status.HTTP_200_OK)
         else:
