@@ -28,19 +28,6 @@ class MakeJobMod(APIView, BaseHandlerMod, MakeJob):
         self.user_id = None
 
     @staticmethod
-    def _get_original_otl(query_str):
-        original_otl = re.sub(r"\|\s*ot\s[^|]*\|", "", query_str)
-        original_otl = re.sub(r"\|\s*simple[^\"]*", "", original_otl)
-        original_otl = original_otl.replace("oteval", "eval")
-        original_otl = original_otl.strip()
-        return original_otl
-
-    @staticmethod
-    def _convert_to_binary(request_data):
-        for data in request_data.values():
-            data[0] = data[0].encode('utf-8')
-
-    @staticmethod
     def _get_client_ip(request_meta):
         x_forwarded_for = request_meta.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:

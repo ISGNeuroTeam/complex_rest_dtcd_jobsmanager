@@ -24,6 +24,6 @@ class CheckJob(APIView):
             error_msg = {"status": "rest_error", "server_error": "Internal Server Error", "status_code": 500,
                          "error": e.args[0]}  # weird
             # add logs
-            return Response({'message': str(error_msg)}, status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(str(error_msg), status.HTTP_500_INTERNAL_SERVER_ERROR)
         # add logs
-        return Response({'message': str(response)}, status.HTTP_200_OK)
+        return Response(response, status.HTTP_200_OK)
