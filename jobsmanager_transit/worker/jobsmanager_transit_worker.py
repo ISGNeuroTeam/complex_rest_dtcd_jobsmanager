@@ -69,7 +69,10 @@ async def main():
             async for _ in async_range(queue_size):
                 job = await manager.jobs_queue.get()
                 logger.info('Got a job from queue')
-                await job.start_make()
+                try:
+                    await job.start_make()
+                except Exception as e:
+                    logger.error(f'Error occurred while start making job: {e}')
                 await asyncio.sleep(0.001)
 
 
