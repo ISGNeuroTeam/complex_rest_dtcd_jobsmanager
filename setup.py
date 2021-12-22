@@ -1,0 +1,9 @@
+__author__ = "Sagaidak Ilia"
+__copyright__ = "Copyright 2021, ISGNeuro"
+__credits__ = []
+__license__ = ""
+__version__ = "0.0.1"
+__api_version__ = "1"
+__maintainer__ = "Sagaidak Ilia"
+__email__ = "isagaidak@isgneuro.com"
+__status__ = "Develop"
