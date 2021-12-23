@@ -14,7 +14,7 @@ Addition section:\n\
 "
 
 GENERATE_VERSION = $(shell cat setup.py | grep __version__ | head -n 1 | sed -re 's/[^"]+//' | sed -re 's/"//g' )
-GENERATE_BRANCH = $(shell git name-rev $$(git rev-parse HEAD) | cut -d\  -f2 | sed -re 's/^(remotes\/)?origin\///' | tr '/' '_')
+GENERATE_BRANCH = $(shell git name-rev $$(git rev-parse HEAD) | cut -d\  -f2 | cut -d ^ -f1 | sed -re 's/^(remotes\/)?origin\///' | tr '/' '_')
 SET_VERSION = $(eval VERSION=$(GENERATE_VERSION))
 SET_BRANCH = $(eval BRANCH=$(GENERATE_BRANCH))
 
