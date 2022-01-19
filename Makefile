@@ -55,7 +55,7 @@ venv:
 	conda create --copy -p ./venv -y
 	conda install -p ./venv python==3.9.7 -y
 	./venv/bin/pip install --no-input  -r requirements.txt
-	rm -rf ./venv/lib/python3.9/pathlib.py  / TODO figure out in future
+	rm -rf ./venv/lib/python3.9/pathlib.py  # TODO figure out in future
 
 venv.tar.gz: venv
 	conda pack -p ./venv -o ./venv.tar.gz
