@@ -2,7 +2,7 @@ import configparser
 
 from core.settings.ini_config import merge_ini_config_with_defaults
 
-from pathlib import Path
+# from pathlib import Path
 import os
 from configparser import ConfigParser
 
@@ -47,7 +47,8 @@ default_ini_config = {
 
 config_parser = configparser.ConfigParser()
 
-config_parser.read(Path(__file__).parent / 'jobsmanager_transit.conf')
+# config_parser.read(Path(__file__).parent / 'jobsmanager_transit.conf')
+config_parser.read(__file__ + '../jobsmanager_transit.conf')
 
 ini_config = merge_ini_config_with_defaults(config_parser, default_ini_config)
 
