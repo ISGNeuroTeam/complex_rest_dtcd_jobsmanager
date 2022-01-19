@@ -46,7 +46,7 @@ make_build: venv.tar.gz
 	cp *.py make_build/jobsmanager_transit/
 	mkdir make_build/jobsmanager_transit/venv
 	tar -xzf ./venv.tar.gz -C make_build/jobsmanager_transit/venv
-	rm -rf ./venv/lib/python3.9/pathlib.py  # TODO figure out in future
+	rm -rf ./venv/lib/python3.9/site-packages/pathlib.py  # TODO figure out in future
 
 clean_build:
 	rm -rf make_build
