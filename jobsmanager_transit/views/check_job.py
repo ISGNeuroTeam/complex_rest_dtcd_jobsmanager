@@ -4,7 +4,7 @@ from rest.permissions import AllowAny, IsAuthenticated
 import uuid
 import logging
 from .. import settings
-from ..manager_sigleton import MANAGER
+from ..manager_singleton import MANAGER
 
 log = logging.getLogger('jobsmanager_transit')
 log.setLevel(settings.ini_config['logging']['level'])
