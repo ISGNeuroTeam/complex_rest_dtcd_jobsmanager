@@ -11,8 +11,10 @@ from rest.permissions import AllowAny
 from rest.views import APIView
 from rest.response import Response
 
-from ..settings import user_conf, MANAGER
+from ..settings import user_conf
 from .base_handler import BaseHandlerMod
+
+from ..manager_singleton import MANAGER
 
 
 class MakeJobMod(APIView, BaseHandlerMod, MakeJob):

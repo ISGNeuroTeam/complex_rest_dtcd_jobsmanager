@@ -4,6 +4,7 @@ from rest.permissions import AllowAny, IsAuthenticated
 import uuid
 import logging
 from .. import settings
+from ..manager_singleton import MANAGER
 
 log = logging.getLogger('jobsmanager_transit')
 log.setLevel(settings.ini_config['logging']['level'])
@@ -19,7 +20,7 @@ class CheckJob(APIView):
         request.arguments = dict(request.GET)
         try:
             request.arguments["original_otl"][0] = request.arguments["original_otl"][0].encode('utf-8')
-            response = settings.MANAGER.check_job(hid=self.handler_id, request=request)
+            response = MANAGER.check_job(hid=self.handler_id, request=request)
         except Exception as e:
             error_msg = {"status": "rest_error", "server_error": "Internal Server Error", "status_code": 500,
                          "error": e.args[0]}  # weird
