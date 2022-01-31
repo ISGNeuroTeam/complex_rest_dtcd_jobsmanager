@@ -48,8 +48,8 @@ default_ini_config = {
 config_parser = configparser.ConfigParser()
 
 # config_parser.read(Path(__file__).parent / 'jobsmanager_transit.conf')
-config_parser.read(__file__ + '../jobsmanager_transit.conf')
-
+# config_parser.read(__file__ + '../jobsmanager_transit.conf')
+config_parser.read(__file__[0:__file__.rfind('/')] + '/jobsmanager_transit.conf') # not allowed to use pathlib?
 ini_config = merge_ini_config_with_defaults(config_parser, default_ini_config)
 
 # configure your own database if you need
