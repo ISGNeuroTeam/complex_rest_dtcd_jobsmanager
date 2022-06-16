@@ -9,6 +9,7 @@ from json import loads
 from jobsmanager_transit.wrappers.simple_request import SimpleRequest
 from jobsmanager_transit.ot_simple_rest.utils.primitives import EverythingEqual
 from jobsmanager_transit.ot_simple_rest.jobs_manager.manager import JobsManager
+import signal
 
 logging.basicConfig(
     level=logging.INFO,
@@ -21,29 +22,39 @@ logging.basicConfig(
 
 logger = logging.getLogger('worker')
 
+# to ensure that try / finaly block will be executed and __exit__ methods of contex manager
+def terminate_handler(signum, frame):
+    log.info('Dispatcher shutdown')
+    sys.exit(0)
+
+
+signal.signal(signal.SIGTERM, terminate_handler)
+
+# # # # # #  Configuration section  # # # # # # #
+
+basedir = os.path.dirname(os.path.abspath(__file__))
+
+config = ConfigParser()
+config.read(os.path.join(basedir, '../ot_simple_rest.conf'))
+
+db_conf = dict(config['db_conf'])
+mem_conf = dict(config['mem_conf'])
+disp_conf = dict(config['dispatcher'])
+resolver_conf = dict(config['resolver'])
+pool_conf = dict(config['db_pool_conf'])
+
+# # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+db_pool = ThreadedConnectionPool(int(pool_conf['min_size']), int(pool_conf['max_size']), **db_conf)
+
 
 async def async_range(count):
     for i in range(count):
         yield i
 
 
-async def main():
-    # # # # # #  Configuration section  # # # # # # #
-
-    basedir = os.path.dirname(os.path.abspath(__file__))
-
-    config = ConfigParser()
-    config.read(os.path.join(basedir, '../ot_simple_rest.conf'))
-
-    db_conf = dict(config['db_conf'])
-    mem_conf = dict(config['mem_conf'])
-    disp_conf = dict(config['dispatcher'])
-    resolver_conf = dict(config['resolver'])
-    pool_conf = dict(config['db_pool_conf'])
-
-    # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-    db_pool = ThreadedConnectionPool(int(pool_conf['min_size']), int(pool_conf['max_size']), **db_conf)
+async def main(db_pool, mem_conf, disp_conf, resolver_conf):
 
     manager = JobsManager(db_pool, mem_conf, disp_conf, resolver_conf)
 
@@ -74,4 +85,7 @@ async def main():
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    try:
+        loop.run_until_complete(main(db_pool, mem_conf, disp_conf, resolver_conf))
+    finally:
+        db_pool.closeall()
