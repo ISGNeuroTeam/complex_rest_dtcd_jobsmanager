@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.1.2] - 2022-06-29
 
 ### Fixed:
 - Dependencies version are frozen now
