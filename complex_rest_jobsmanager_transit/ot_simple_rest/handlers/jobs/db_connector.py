@@ -1,4 +1,4 @@
-from jobsmanager_transit.ot_simple_rest.tools.pg_connector import PGConnector
+from complex_rest_jobsmanager_transit.ot_simple_rest.tools.pg_connector import PGConnector
 
 
 __author__ = "Anton Khromov"

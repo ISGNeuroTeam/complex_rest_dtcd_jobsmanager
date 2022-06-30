@@ -8,7 +8,7 @@ all:
  build - build project into build directory, with configuration file and environment\n\
  clean - clean all addition file, build directory and output archive file\n\
  test - run all tests\n\
- pack - make output archive, file name format \"jobsmanager_transit_vX.Y.Z_BRANCHNAME.tar.gz\"\n\
+ pack - make output archive, file name format \"complex_rest_jobsmanager_transit_vX.Y.Z_BRANCHNAME.tar.gz\"\n\
 Addition section:\n\
  venv\n\
 "
@@ -21,16 +21,16 @@ SET_BRANCH = $(eval BRANCH=$(GENERATE_BRANCH))
 pack: make_build
 	$(SET_VERSION)
 	$(SET_BRANCH)
-	rm -f jobsmanager_transit-*.tar.gz
-	echo Create archive \"jobsmanager_transit-$(VERSION)-$(BRANCH).tar.gz\"
-	cd make_build; tar czf ../jobsmanager_transit-$(VERSION)-$(BRANCH).tar.gz jobsmanager_transit
+	rm -f complex_rest_jobsmanager_transit-*.tar.gz
+	echo Create archive \"complex_rest_jobsmanager_transit-$(VERSION)-$(BRANCH).tar.gz\"
+	cd make_build; tar czf ../complex_rest_jobsmanager_transit-$(VERSION)-$(BRANCH).tar.gz complex_rest_jobsmanager_transit --transform "s/^complex_rest_//"
 
 clean_pack:
-	rm -f jobsmanager_transit-*.tar.gz
+	rm -f complex_rest_jobsmanager_transit-*.tar.gz
 
 
-jobsmanager_transit.tar.gz: build
-	cd make_build; tar czf ../jobsmanager_transit.tar.gz jobsmanager_transit && rm -rf ../make_build
+complex_rest_jobsmanager_transit.tar.gz: build
+	cd make_build; tar czf ../complex_rest_jobsmanager_transit.tar.gz complex_rest_jobsmanager_transit --transform "s/^complex_rest_//" && rm -rf ../make_build
 
 build: make_build
 
@@ -39,14 +39,14 @@ make_build: venv.tar.gz
 	echo make_build
 	mkdir make_build
 
-	cp -R ./jobsmanager_transit make_build
-	rm -f make_build/jobsmanager_transit/jobsmanager_transit.conf
-	mv make_build/jobsmanager_transit/jobsmanager_transit.conf.example make_build/jobsmanager_transit/jobsmanager_transit.conf
-	cp *.md make_build/jobsmanager_transit/
-	cp *.py make_build/jobsmanager_transit/
-	mkdir make_build/jobsmanager_transit/venv
-	tar -xzf ./venv.tar.gz -C make_build/jobsmanager_transit/venv
-	rm -rf ./make_build/jobsmanager_transit/venv/lib/python3.9/site-packages/pathlib.py  # TODO figure out in future
+	cp -R ./complex_rest_jobsmanager_transit make_build
+	rm -f make_build/complex_rest_jobsmanager_transit/complex_rest_jobsmanager_transit.conf
+	mv make_build/complex_rest_jobsmanager_transit/complex_rest_jobsmanager_transit.conf.example make_build/complex_rest_jobsmanager_transit/complex_rest_jobsmanager_transit.conf
+	cp *.md make_build/complex_rest_jobsmanager_transit/
+	cp *.py make_build/complex_rest_jobsmanager_transit/
+	mkdir make_build/complex_rest_jobsmanager_transit/venv
+	tar -xzf ./venv.tar.gz -C make_build/complex_rest_jobsmanager_transit/venv
+	rm -rf ./make_build/complex_rest_jobsmanager_transit/venv/lib/python3.9/site-packages/pathlib.py  # TODO figure out in future
 
 clean_build:
 	rm -rf make_build
@@ -69,12 +69,12 @@ complex_rest:
 	@echo "Should clone complex_rest repository in future..."
 # 	git clone git@github.com:ISGNeuroTeam/complex_rest.git
 # 	{ cd ./complex_rest; git checkout develop; make venv; make redis; }
-# 	ln -s ../../../../jobsmanager_transit/jobsmanager_transit ./complex_rest/complex_rest/plugins/jobsmanager_transit
+# 	ln -s ../../../../complex_rest_jobsmanager_transit/complex_rest_jobsmanager_transit ./complex_rest/complex_rest/plugins/complex_rest_jobsmanager_transit
 
 clean_complex_rest:
 ifneq (,$(wildcard ./complex_rest))
 	{ cd ./complex_rest; make clean;}
-	rm -f ./complex_rest/plugins/jobsmanager_transit
+	rm -f ./complex_rest/plugins/complex_rest_jobsmanager_transit
 	rm -rf ./complex_rest
 endif
 
