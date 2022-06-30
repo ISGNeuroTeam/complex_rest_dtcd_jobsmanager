@@ -1,4 +1,4 @@
-# jobsmanager_transit
+# DTCD Jobsmanager (Transit)
 
 Plugin for [complex rest](https://github.com/ISGNeuroTeam/complex_rest/tree/develop)
 

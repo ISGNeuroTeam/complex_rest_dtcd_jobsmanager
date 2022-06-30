@@ -40,8 +40,9 @@ make_build: venv.tar.gz
 	mkdir make_build
 
 	cp -R ./complex_rest_dtcd_jobsmanager make_build
-	rm -f make_build/complex_rest_dtcd_jobsmanager/complex_rest_dtcd_jobsmanager.conf
-	mv make_build/complex_rest_dtcd_jobsmanager/complex_rest_dtcd_jobsmanager.conf.example make_build/complex_rest_dtcd_jobsmanager/complex_rest_dtcd_jobsmanager.conf
+	cp docs/jobsmanager_transit.conf.example make_build/jobsmanager_transit.conf
+	cp docs/ot_simple_rest.conf.example make_build/ot_simple_rest.conf
+	cp docs/proc.conf.example make_build/proc.conf
 	cp *.md make_build/complex_rest_dtcd_jobsmanager/
 	cp *.py make_build/complex_rest_dtcd_jobsmanager/
 	mkdir make_build/complex_rest_dtcd_jobsmanager/venv
