@@ -1,7 +1,7 @@
 import logging
-from complex_rest_jobsmanager_transit.wrappers.jobs_queue import JobsQueue
-from complex_rest_jobsmanager_transit.ot_simple_rest.jobs_manager.manager import JobsManager
-from complex_rest_jobsmanager_transit.ot_simple_rest.jobs_manager.jobs import Job
+from complex_rest_dtcd_jobsmanager.wrappers.jobs_queue import JobsQueue
+from complex_rest_dtcd_jobsmanager.ot_simple_rest.jobs_manager.manager import JobsManager
+from complex_rest_dtcd_jobsmanager.ot_simple_rest.jobs_manager.jobs import Job
 
 logger = logging.getLogger('osr_wrapped')
 

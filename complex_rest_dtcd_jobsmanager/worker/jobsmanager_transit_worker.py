@@ -6,9 +6,9 @@ from configparser import ConfigParser
 from psycopg2.pool import ThreadedConnectionPool
 from message_broker import AsyncConsumer as Consumer
 from json import loads
-from complex_rest_jobsmanager_transit.wrappers.simple_request import SimpleRequest
-from complex_rest_jobsmanager_transit.ot_simple_rest.utils.primitives import EverythingEqual
-from complex_rest_jobsmanager_transit.ot_simple_rest.jobs_manager.manager import JobsManager
+from complex_rest_dtcd_jobsmanager.wrappers.simple_request import SimpleRequest
+from complex_rest_dtcd_jobsmanager.ot_simple_rest.utils.primitives import EverythingEqual
+from complex_rest_dtcd_jobsmanager.ot_simple_rest.jobs_manager.manager import JobsManager
 import signal
 
 logging.basicConfig(
