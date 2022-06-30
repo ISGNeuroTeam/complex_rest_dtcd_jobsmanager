@@ -1,7 +1,7 @@
 import os
 from configparser import ConfigParser
 from psycopg2.pool import ThreadedConnectionPool
-from complex_rest_dtcd_jobsmanager.wrappers import jobs_wrapper, pool_wrapper
+from dtcd_jobsmanager.wrappers import jobs_wrapper, pool_wrapper
 
 ######################
 # PRODUCER
