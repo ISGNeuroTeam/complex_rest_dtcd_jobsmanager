@@ -36,12 +36,15 @@ make pack
 
 ## Contributing
 
+- not there yet
+
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
+- Ilia Sagaidak (isagaidak@isgneuro.com)
 
 ## License
 
@@ -51,4 +54,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * Hat tip to anyone whose code was used
 * Inspiration
-* etc

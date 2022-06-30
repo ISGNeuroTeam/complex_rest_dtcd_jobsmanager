@@ -6,7 +6,7 @@ import tornado.web
 import jwt
 
 from ..eva.base import BaseHandler
-from jobsmanager_transit.ot_simple_rest.utils.primitives import EverythingEqual
+from dtcd_jobsmanager.ot_simple_rest.utils.primitives import EverythingEqual
 
 __author__ = "Andrey Starchenkov"
 __copyright__ = "Copyright 2019, Open Technologies 98"

@@ -3,7 +3,7 @@ import logging
 import re
 import uuid
 
-from jobsmanager_transit.ot_simple_rest.handlers.jobs.makejob import MakeJob
+from dtcd_jobsmanager.ot_simple_rest.handlers.jobs.makejob import MakeJob
 from rest_framework.request import Request
 
 from rest.permissions import AllowAny

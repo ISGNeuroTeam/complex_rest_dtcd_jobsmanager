@@ -1,7 +1,7 @@
 import logging
 import uuid
 
-from jobsmanager_transit.ot_simple_rest.handlers.eva.db_connector import PostgresConnector
+from dtcd_jobsmanager.ot_simple_rest.handlers.eva.db_connector import PostgresConnector
 
 
 class BaseHandlerMod:
