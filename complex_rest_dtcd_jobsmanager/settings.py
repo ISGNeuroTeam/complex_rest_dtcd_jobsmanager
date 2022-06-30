@@ -24,14 +24,6 @@ static_conf = dict(ot_simple_rest_conf['static'])
 user_conf = dict(ot_simple_rest_conf['user'])
 pool_conf = dict(ot_simple_rest_conf['db_pool_conf'])
 
-# # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# db_pool = ThreadedConnectionPool(int(pool_conf['min_size']), int(pool_conf['max_size']), **db_conf)
-#
-# MANAGER = jobs_wrapper.JobsManagerWrapper(db_conn_pool=db_pool, mem_conf=mem_conf, disp_conf=disp_conf,
-#                                              resolver_conf=resolver_conf)
-######################
-
 default_ini_config = {
     'logging': {
         'level': 'INFO'
@@ -51,13 +43,3 @@ config_parser = configparser.ConfigParser()
 # config_parser.read(__file__ + '../jobsmanager_transit.conf')
 config_parser.read(__file__[0:__file__.rfind('/')] + '/jobsmanager_transit.conf') # not allowed to use pathlib?
 ini_config = merge_ini_config_with_defaults(config_parser, default_ini_config)
-
-# configure your own database if you need
-# DATABASE = {
-#         "ENGINE": 'django.db.backends.postgresql',
-#         "NAME": ini_config['db_conf']['database'],
-#         "USER": ini_config['db_conf']['user'],
-#         "PASSWORD": ini_config['db_conf']['password'],
-#         "HOST": ini_config['db_conf']['host'],
-#         "PORT": ini_config['db_conf']['port']
-# }
