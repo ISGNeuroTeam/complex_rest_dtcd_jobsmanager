@@ -23,7 +23,7 @@ class CheckJob(APIView):
         except Exception as e:
             error_msg = {"status": "rest_error", "server_error": "Internal Server Error", "status_code": 500,
                          "error": e.args[0]}
-            return Response(str(error_msg), status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(error_msg, status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(response, status.HTTP_200_OK)
 
     def get(self, request):
