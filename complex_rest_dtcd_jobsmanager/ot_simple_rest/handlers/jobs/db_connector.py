@@ -1,4 +1,5 @@
-from dtcd_jobsmanager.ot_simple_rest.tools.pg_connector import PGConnector
+from tools.pg_connector import PGConnector
+from utils.hashes import hash512
 
 
 __author__ = "Anton Khromov"
@@ -21,7 +22,7 @@ class PostgresConnector(PGConnector):
         stm_tuple = (original_otl, tws, twf, field_extraction, preview)
         self.logger.info(query_str % stm_tuple)
 
-        cache_data = self.execute_query(query_str, params=stm_tuple, fetchall=True)
+        cache_data = self.execute_query(query_str, params=stm_tuple)
         if cache_data:
             cache_id, creating_date = cache_data
         return cache_id, creating_date
@@ -33,7 +34,7 @@ class PostgresConnector(PGConnector):
         stm_tuple = (original_otl, tws, twf, field_extraction, preview)
         self.logger.info(query_str % stm_tuple)
 
-        job_data = self.execute_query(query_str, params=stm_tuple, fetchall=False)
+        job_data = self.execute_query(query_str, params=stm_tuple)
         if job_data:
             job_id, creating_date = job_data
         return job_id, creating_date
@@ -78,9 +79,10 @@ class PostgresConnector(PGConnector):
         return cache_id, creating_date
 
     def add_to_cache(self, *, original_otl, tws, twf, cache_id, expiring_date):
-        query_str = "INSERT INTO CachesDL (original_otl, tws, twf, id, expiring_date) " \
-                    "VALUES(%s, %s, %s, %s, to_timestamp(extract(epoch from now()) + %s));"
-        stm_tuple = (original_otl, tws, twf, cache_id, expiring_date)
+        hashed_original_otl = hash512(original_otl)
+        query_str = "INSERT INTO CachesDL (original_otl, tws, twf, id, expiring_date, hashed_original_otl) " \
+                    "VALUES(%s, %s, %s, %s, to_timestamp(extract(epoch from now()) + %s), %s);"
+        stm_tuple = (original_otl, tws, twf, cache_id, expiring_date, hashed_original_otl)
         self.logger.debug(query_str % stm_tuple)
         self.execute_query(query_str, params=stm_tuple, with_commit=True, with_fetch=False)
 
@@ -130,3 +132,7 @@ class PostgresConnector(PGConnector):
     def add_roles(self, *, username, roles, indexes):
         query_str = "INSERT INTO RoleModel (username, roles, indexes) VALUES (%s, %s, %s);"
         self.execute_query(query_str, params=(username, roles, indexes,), with_commit=True, with_fetch=False)
+
+    def get_running_jobs_num(self):
+        query_str = "SELECT COUNT(*) FROM otlqueries WHERE status = 'running';"
+        return self.execute_query(query_str)[0]
