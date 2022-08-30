@@ -1,5 +1,5 @@
-from tools.pg_connector import PGConnector
-from utils.hashes import hash512
+from ot_simple_rest.tools.pg_connector import PGConnector
+from ot_simple_rest.utils.hashes import hash512
 
 
 __author__ = "Anton Khromov"
