@@ -1,5 +1,5 @@
-from ot_simple_rest.tools.pg_connector import PGConnector
-from ot_simple_rest.utils.hashes import hash512
+from dtcd_jobsmanager.ot_simple_rest.tools.pg_connector import PGConnector
+from dtcd_jobsmanager.ot_simple_rest.utils.hashes import hash512
 
 
 __author__ = "Anton Khromov"
@@ -13,7 +13,7 @@ __status__ = "Production"
 
 
 class PostgresConnector(PGConnector):
-    def __init(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def check_cache(self, *, original_otl, tws, twf, field_extraction, preview):
