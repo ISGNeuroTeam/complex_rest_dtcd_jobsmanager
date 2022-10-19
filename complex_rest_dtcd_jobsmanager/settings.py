@@ -23,6 +23,7 @@ resolver_conf = dict(ot_simple_rest_conf['resolver'])
 static_conf = dict(ot_simple_rest_conf['static'])
 user_conf = dict(ot_simple_rest_conf['user'])
 pool_conf = dict(ot_simple_rest_conf['db_pool_conf'])
+distribution_conf = dict(ot_simple_rest_conf['distribution'])
 
 default_ini_config = {
     'logging': {

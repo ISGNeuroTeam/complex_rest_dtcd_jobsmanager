@@ -1,6 +1,6 @@
 import os
 from configparser import ConfigParser
-from psycopg2.pool import ThreadedConnectionPool
+from ot_simple_connector.connector import Connector
 from dtcd_jobsmanager.wrappers import jobs_wrapper, pool_wrapper
 
 ######################
@@ -18,6 +18,7 @@ mem_conf = dict(ot_simple_rest_conf['mem_conf'])
 disp_conf = dict(ot_simple_rest_conf['dispatcher'])
 resolver_conf = dict(ot_simple_rest_conf['resolver'])
 pool_conf = dict(ot_simple_rest_conf['db_pool_conf'])
+distribution_conf = dict(ot_simple_rest_conf['distribution'])
 
 # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -25,3 +26,12 @@ db_pool = pool_wrapper.ThreadedConnectionPoolWrapper(int(pool_conf['min_size']),
 
 MANAGER = jobs_wrapper.JobsManagerWrapper(db_conn_pool=db_pool, mem_conf=mem_conf, disp_conf=disp_conf,
                                              resolver_conf=resolver_conf)
+
+CONNECTOR = None
+
+if not eval(distribution_conf.get('monolith', True)):
+    CONNECTOR = Connector(host=distribution_conf.get('platform_host', 'localhost'),
+                          port=distribution_conf.get('rest_port', '50000'),
+                          user=distribution_conf.get('user', 'admin'),
+                          password=distribution_conf.get('password', '12345678'),
+                          cache_port=distribution_conf.get('cache_port', '80'))
